@@ -1,0 +1,44 @@
+{
+    "coord": {
+        "lon": -73.85,
+        "lat": 43.1
+    },
+    "weather": [
+        {
+            "id": 803,
+            "main": "Clouds",
+            "description": "broken clouds",
+            "icon": "04n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 28.81,
+        "feels_like": 22.37,
+        "temp_min": 28,
+        "temp_max": 28.99,
+        "pressure": 1029,
+        "humidity": 59
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 1.99,
+        "deg": 59,
+        "gust": 8.99
+    },
+    "clouds": {
+        "all": 56
+    },
+    "dt": 1606262910,
+    "sys": {
+        "type": 3,
+        "id": 2012026,
+        "country": "US",
+        "sunrise": 1606219200,
+        "sunset": 1606253093
+    },
+    "timezone": -18000,
+    "id": 5136325,
+    "name": "Saratoga",
+    "cod": 200
+}
