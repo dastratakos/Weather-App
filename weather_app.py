@@ -15,12 +15,11 @@ from datetime import datetime
 # pprint = pp.PrettyPrinter(indent=4)
 
 ###### IMPORT THIRD-PARTY LIBRARIES
-from PIL import Image, ImageTk
 import requests
 import tkinter as tk
 
 ###### IMPORT CUSTOM COMPONENTS
-from colors import *
+from styles import *
 import curtain
 import footer
 import main_basic_weather
@@ -47,52 +46,21 @@ class Main(tk.Frame):
         self.weather_details = main_weather_details.MainWeatherDetails(self.root, self)
         self.hourly = main_hourly.MainHourly(self.root)
         self.daily = main_daily.MainDaily(self.root)
-
-    def open_image(self, canvas, icon):
-        img = ImageTk.PhotoImage(Image.open('./resources/' + icon + '.png').resize((60, 60)))
-        canvas.delete('all')
-        canvas.create_image(canvas.winfo_width() / 2, canvas.winfo_height() / 2,
-            anchor='center', image=img)
-        canvas.image = img
+        self.curtain = curtain.Curtain(self.root)
 
     def formatOneCallResponse(self, res):
-        current = res['current']
-        self.header.formatHeader(current)
-        self.basic_weather.format(current)
+        self.curtain.root.destroy()
 
-        self.weather_details.label_weather_details['text'] = \
-            f"Feels like: {round(current['feels_like'])}°F\n" + \
-            f"Humidity: {current['humidity']}%\n" + \
-            f"Wind: {current['wind_speed']} mph"
+        self.header.format(res['current'])
+        self.basic_weather.format(res['current'])
+        self.weather_details.format(res['current'])
 
-        # HOURLY
-        hourly = res['hourly']
-        self.hourly.hourly_memory.clear()
-        for i in range(8):
-            self.hourly.hourly_memory.append({
-                'hour': datetime.fromtimestamp(hourly[i]['dt']).strftime('%-I %p'),
-                'temp': f"{round(hourly[i]['temp'])}°",
-                'humidity': f"{hourly[i]['humidity']}%",
-                'wind': f"{hourly[i]['wind_speed']}\nmph"
-            })
-            self.hourly.containers_hourly[i]['label']['text'] = self.hourly.hourly_memory[-1]['hour']
+        self.hourly.format(res['hourly'])
 
-        self.hourly.formatHourly('temp')
+        self.daily.format(res['daily'])
 
-        # DAILY
-        daily = res['daily']
-        for i in range(8):
-            day = datetime.fromtimestamp(daily[i]['dt']).strftime('%a %-d')
-            self.daily.containers_daily[i]['label']['text'] = day
-
-            icon_name = daily[i]['weather'][0]['icon']
-            self.open_image(self.daily.containers_daily[i]['icon'], icon_name)
-
-            self.daily.containers_daily[i]['temp']['text'] = f"{round(daily[i]['temp']['max'])}° / " + \
-                                                f"{round(daily[i]['temp']['min'])}°"
-
-    def formatHourly(self, mode):
-        self.hourly.formatHourly(mode)
+    def showStat(self, mode):
+        self.hourly.showStat(mode)
 
 class WeatherApp(tk.Frame):
     def __init__(self, root):
@@ -100,7 +68,6 @@ class WeatherApp(tk.Frame):
         
         self.search_module = search_module.SearchModule(root, self)
         self.main = Main(root)
-        self.curtain = curtain.Curtain(root)
         self.footer = footer.Footer(root)
 
     def buttonPressed(self, city_name, state_code, country_code):
@@ -121,8 +88,6 @@ class WeatherApp(tk.Frame):
             (f", {city['state']}" if city['state'] else '') + \
             (f", {city['country']}" if city['country'] else '')
 
-        self.curtain.root.destroy()
-
         self.main.formatOneCallResponse(res)
         print()
 
@@ -132,7 +97,7 @@ def main():
     canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
     canvas.pack()
 
-    background_image = tk.PhotoImage(file='./resources/background.png')
+    background_image = tk.PhotoImage(file='./res/background.png')
     background_label = tk.Label(root, image=background_image)
     background_label.place(relwidth=1, relheight=1)
 

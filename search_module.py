@@ -2,7 +2,7 @@ import json
 
 import tkinter as tk
 
-from colors import *
+from styles import *
 
 class SearchModule(tk.Frame):
     def __init__(self, parent, controller):
@@ -14,29 +14,29 @@ class SearchModule(tk.Frame):
         self.root = tk.Frame(parent, bg=COLOR_BLUE, bd=10)
         self.root.place(relx=0.5, rely=0.05, relwidth=0.85, relheight=0.2, anchor='n')
 
-        self.label_city = tk.Label(self.root, text='City:', font=('Avenir Next', 20),
+        self.label_city = tk.Label(self.root, text='City:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
         self.label_city.place(rely=0, relwidth=0.2, height=35)
-        self.entry_city = tk.Entry(self.root, text='Saratoga', font=('Avenir Next', 20),
+        self.entry_city = tk.Entry(self.root, text='Saratoga', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
         self.entry_city.place(rely=0, relx=0.25, relwidth=0.5, height=35)
 
-        self.label_state = tk.Label(self.root, text='State:', font=('Avenir Next', 20),
+        self.label_state = tk.Label(self.root, text='State:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
         self.label_state.place(rely=0.3333, relwidth=0.2, height=35)
-        self.entry_state = tk.Entry(self.root, text='CA', font=('Avenir Next', 20),
+        self.entry_state = tk.Entry(self.root, text='CA', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
         self.entry_state.place(rely=0.3333, relx=0.25, relwidth=0.5, height=35)
 
-        self.label_country = tk.Label(self.root, text='Country:', font=('Avenir Next', 20),
+        self.label_country = tk.Label(self.root, text='Country:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
         self.label_country.place(rely=0.6666, relwidth=0.2, height=35)
-        self.entry_country = tk.Entry(self.root, text='USA', font=('Avenir Next', 20),
+        self.entry_country = tk.Entry(self.root, text='USA', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
         self.entry_country.place(rely=0.6666, relx=0.25, relwidth=0.5, height=35)
 
         self.button_go = tk.Button(self.root, text='GO', fg=COLOR_GREEN,
-            font=('Avenir Next', 20, 'bold'), 
+            font=(FONT, 20, 'bold'), 
             command=lambda: controller.buttonPressed(self.entry_city.get(),
                 self.entry_state.get(), self.entry_country.get()))
         self.button_go.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)

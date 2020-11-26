@@ -4,3 +4,7 @@ COLOR_LIGHT_GRAY = '#989898'
 COLOR_DARK_GRAY = '#444444'
 COLOR_BLUE = '#4b80ac' #'#80c1ff'
 COLOR_GREEN = '#3bb143'
+
+FONT = 'Avenir Next'
+
+ICON_SIZE = 60

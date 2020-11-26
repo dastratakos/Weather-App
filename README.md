@@ -9,4 +9,6 @@ TODO:
 - [] ability to click on different days and update info
 - [] move code to `src` file
 - [] create executable
-- [] clean up get_weather_icons.py
+- [x] clean up get_weather_icons.py
+- [] check line wrapping, pick order for (text=, fg=, font=, ...) for TK components
+- [] Rename files
