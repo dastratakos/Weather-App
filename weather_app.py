@@ -10,7 +10,6 @@ References:
     https://github.com/KeithGalli/GUI
 """
 ###### IMPORT BUILT-IN LIBRARIES
-from datetime import datetime
 # import pprint as pp
 # pprint = pp.PrettyPrinter(indent=4)
 
@@ -19,15 +18,15 @@ import requests
 import tkinter as tk
 
 ###### IMPORT CUSTOM COMPONENTS
-from styles import *
-import curtain
-import footer
-import main_basic_weather
-import main_daily
-import main_header
-import main_hourly
-import main_weather_details
-import search_module
+from src.styles import *
+from src import curtain
+from src import footer
+from src import main_basic_weather
+from src import main_daily
+from src import main_header
+from src import main_hourly
+from src import main_weather_details
+from src import search_module
 
 HEIGHT = 700
 WIDTH = 800

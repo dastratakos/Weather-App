@@ -2,7 +2,7 @@ from datetime import datetime
 
 import tkinter as tk
 
-from styles import *
+from src.styles import *
 
 class MainHeader(tk.Frame):
     def __init__(self, parent):

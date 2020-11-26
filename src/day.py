@@ -3,7 +3,7 @@ from datetime import datetime
 from PIL import Image, ImageTk
 import tkinter as tk
 
-from styles import *
+from src.styles import *
 
 class Day(tk.Frame):
     def __init__(self, parent, index):
@@ -32,8 +32,8 @@ class Day(tk.Frame):
 
         # open image
         icon_name = res['weather'][0]['icon']
-        img = ImageTk.PhotoImage(Image.open(f'./res/{icon_name}.png')
-                                        .resize((ICON_SIZE, ICON_SIZE)))
+        img = ImageTk.PhotoImage(Image.open(ICON_DIR + icon_name + '.png')
+                                      .resize((ICON_SIZE, ICON_SIZE)))
         self.icon.delete('all')
         self.icon.create_image(self.icon.winfo_width() / 2,
             self.icon.winfo_height() / 2, anchor='center', image=img)

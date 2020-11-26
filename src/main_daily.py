@@ -1,7 +1,7 @@
 import tkinter as tk
 
-from styles import *
-import day
+from src.styles import *
+from src import day
 
 NUM_DAYS = 8
 class MainDaily(tk.Frame):

@@ -1,7 +1,7 @@
 from PIL import Image, ImageTk
 import tkinter as tk
 
-from styles import *
+from src.styles import *
 
 class MainBasicWeather(tk.Frame):
     def __init__(self, parent):
@@ -20,7 +20,7 @@ class MainBasicWeather(tk.Frame):
     def format(self, current):
         # open image
         icon_name = current['weather'][0]['icon']
-        img = ImageTk.PhotoImage(Image.open(f'./res/{icon_name}.png')
+        img = ImageTk.PhotoImage(Image.open(ICON_DIR + icon_name + '.png')
                                       .resize((ICON_SIZE, ICON_SIZE)))
         self.icon.delete('all')
         self.icon.create_image(self.icon.winfo_width() / 2,

@@ -8,3 +8,4 @@ COLOR_GREEN = '#3bb143'
 FONT = 'Avenir Next'
 
 ICON_SIZE = 60
+ICON_DIR = './res/icons/'

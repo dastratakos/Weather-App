@@ -33,14 +33,14 @@ def main(get_google=True):
 			'sunny_light_color_96dp.png',
 			'clear_night_light_color_96dp.png'
 		]
-		output_dir = './res/google_icons/'
+		output_dir = '../res/google_icons/'
 	else:
 		base_url = 'https://openweathermap.org/img/w/'
 		file_names = ['01d.png', '02d.png', '03d.png', '04d.png', '09d.png',
 			'10d.png', '11d.png', '13n.png', '50d.png', '01n.png', '02n.png',
 			'03n.png', '04n.png', '09n.png', '10n.png', '11n.png', '13n.png',
 			'50n.png']
-		output_dir = './res/open_weather_icons/'
+		output_dir = '../res/open_weather_icons/'
 
 	downloadIcons(base_url, file_names, output_dir)
 

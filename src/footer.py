@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from styles import *
+from src.styles import *
 
 class Footer(tk.Frame):
     def __init__(self, root):

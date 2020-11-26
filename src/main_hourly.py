@@ -1,10 +1,7 @@
-from datetime import datetime
-from main_daily import NUM_DAYS
-
 import tkinter as tk
 
-from styles import *
-import hour
+from src.styles import *
+from src import hour
 
 NUM_HOURS = 8
 
