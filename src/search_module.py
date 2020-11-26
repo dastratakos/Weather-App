@@ -16,24 +16,24 @@ class SearchModule(tk.Frame):
 
         self.label_city = tk.Label(self.root, text='City:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_city.place(rely=0, relwidth=0.2, height=35)
+        self.label_city.place(rely=0, relx=0.1, relwidth=0.2, height=35, anchor='n')
         self.entry_city = tk.Entry(self.root, text='Saratoga', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
-        self.entry_city.place(rely=0, relx=0.25, relwidth=0.5, height=35)
+        self.entry_city.place(rely=0, relx=0.5, relwidth=0.5, height=35, anchor='n')
 
         self.label_state = tk.Label(self.root, text='State:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_state.place(rely=0.3333, relwidth=0.2, height=35)
+        self.label_state.place(rely=0.5, relwidth=0.2, height=35, anchor='w')
         self.entry_state = tk.Entry(self.root, text='CA', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
-        self.entry_state.place(rely=0.3333, relx=0.25, relwidth=0.5, height=35)
+        self.entry_state.place(rely=0.5, relx=0.25, relwidth=0.5, height=35, anchor='w')
 
         self.label_country = tk.Label(self.root, text='Country:', font=(FONT, 20),
             anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_country.place(rely=0.6666, relwidth=0.2, height=35)
+        self.label_country.place(rely=1, relx=0.1, relwidth=0.2, height=35, anchor='s')
         self.entry_country = tk.Entry(self.root, text='USA', font=(FONT, 20),
             fg=COLOR_DARK_GRAY)
-        self.entry_country.place(rely=0.6666, relx=0.25, relwidth=0.5, height=35)
+        self.entry_country.place(rely=1, relx=0.5, relwidth=0.5, height=35, anchor='s')
 
         self.button_search = tk.Button(self.root, text='SEARCH', fg=COLOR_GREEN,
             font=(FONT, 20, 'bold'), 

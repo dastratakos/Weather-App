@@ -25,7 +25,7 @@ from src.details        import Details
 from src.footer         import Footer
 from src.headline       import Headline
 from src.hourly         import Hourly
-from src.search_module  import Search_module
+from src.search_module  import SearchModule
 from src.weather        import Weather
 
 HEIGHT = 700
@@ -65,9 +65,9 @@ class WeatherApp(tk.Frame):
     def __init__(self, root):
         tk.Frame.__init__(self, root)
         
-        self.search_module = search_module.SearchModule(root, self)
+        self.search_module = SearchModule(root, self)
         self.main = Main(root)
-        self.footer = footer.Footer(root)
+        self.footer = Footer(root)
 
     def buttonPressed(self, city_name, state_code, country_code):
         city_name, state_code, country_code = (city_name.strip().title(),

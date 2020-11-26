@@ -5,7 +5,7 @@ from src.hour   import Hour
 
 NUM_HOURS = 8
 
-class MainHourly(tk.Frame):
+class Hourly(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
 
