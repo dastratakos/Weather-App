@@ -8,7 +8,7 @@ class SearchModule(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        with open('./res/city.list.json') as f:
+        with open('./open-weather-app/city.list.json') as f:
             self.city_list = json.load(f)
 
         self.root = tk.Frame(parent, bg=COLOR_BLUE, bd=10)
