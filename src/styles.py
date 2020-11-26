@@ -2,7 +2,7 @@ COLOR_WHITE = '#efefef'
 COLOR_GRAY = '#767676'
 COLOR_LIGHT_GRAY = '#989898'
 COLOR_DARK_GRAY = '#444444'
-COLOR_BLUE = '#4b80ac' #'#80c1ff'
+COLOR_BLUE = '#4b80ac'
 COLOR_GREEN = '#3bb143'
 
 FONT = 'Avenir Next'

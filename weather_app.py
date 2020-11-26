@@ -18,15 +18,15 @@ import requests
 import tkinter as tk
 
 ###### IMPORT CUSTOM COMPONENTS
-from src.styles import *
-from src import curtain
-from src import footer
-from src import main_basic_weather
-from src import main_daily
-from src import main_header
-from src import main_hourly
-from src import main_weather_details
-from src import search_module
+from src.styles         import *
+from src.curtain        import Curtain
+from src.daily          import Daily
+from src.details        import Details
+from src.footer         import Footer
+from src.headline       import Headline
+from src.hourly         import Hourly
+from src.search_module  import Search_module
+from src.weather        import Weather
 
 HEIGHT = 700
 WIDTH = 800
@@ -40,12 +40,12 @@ class Main(tk.Frame):
         self.root = tk.Frame(parent, bd=10)
         self.root.place(relx=0.5, rely=0.95, relwidth=0.85, relheight=0.65, anchor='s')
 
-        self.header = main_header.MainHeader(self.root)
-        self.basic_weather = main_basic_weather.MainBasicWeather(self.root)
-        self.weather_details = main_weather_details.MainWeatherDetails(self.root, self)
-        self.hourly = main_hourly.MainHourly(self.root)
-        self.daily = main_daily.MainDaily(self.root)
-        self.curtain = curtain.Curtain(self.root)
+        self.header = Headline(self.root)
+        self.basic_weather = Weather(self.root)
+        self.weather_details = Details(self.root, self)
+        self.hourly = Hourly(self.root)
+        self.daily = Daily(self.root)
+        self.curtain = Curtain(self.root)
 
     def formatOneCallResponse(self, res):
         self.curtain.root.destroy()

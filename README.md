@@ -12,3 +12,4 @@ TODO:
 - [x] clean up get_weather_icons.py
 - [ ] check line wrapping, pick order for (text=, fg=, font=, ...) for TK components
 - [ ] Rename files
+- [ ] If there are multiple search results, display them

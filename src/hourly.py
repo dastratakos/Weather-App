@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from src.styles import *
-from src import hour
+from src.hour   import Hour
 
 NUM_HOURS = 8
 
@@ -14,7 +14,7 @@ class MainHourly(tk.Frame):
 
         self.hours = []
         for i in range(NUM_HOURS):
-            self.hours.append(hour.Hour(self.root, i))
+            self.hours.append(Hour(self.root, i))
 
     def format(self, res):
         for i in range(NUM_HOURS):

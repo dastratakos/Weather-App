@@ -3,7 +3,7 @@ import tkinter as tk
 
 from src.styles import *
 
-class MainBasicWeather(tk.Frame):
+class Weather(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
 

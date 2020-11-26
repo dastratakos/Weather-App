@@ -35,11 +35,11 @@ class SearchModule(tk.Frame):
             fg=COLOR_DARK_GRAY)
         self.entry_country.place(rely=0.6666, relx=0.25, relwidth=0.5, height=35)
 
-        self.button_go = tk.Button(self.root, text='GO', fg=COLOR_GREEN,
+        self.button_search = tk.Button(self.root, text='SEARCH', fg=COLOR_GREEN,
             font=(FONT, 20, 'bold'), 
             command=lambda: controller.buttonPressed(self.entry_city.get(),
                 self.entry_state.get(), self.entry_country.get()))
-        self.button_go.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)
+        self.button_search.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)
     
     def getCity(self, city_name, state_code, country_code):
         results = [x for x in self.city_list

@@ -1,10 +1,10 @@
 import tkinter as tk
 
 from src.styles import *
-from src import day
+from src.day    import Day
 
 NUM_DAYS = 8
-class MainDaily(tk.Frame):
+class Daily(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
 
@@ -13,7 +13,7 @@ class MainDaily(tk.Frame):
 
         self.days = []
         for i in range(NUM_DAYS):
-            self.days.append(day.Day(self.root, i))
+            self.days.append(Day(self.root, i))
     
     def format(self, res):
         """
