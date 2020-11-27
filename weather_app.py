@@ -26,6 +26,7 @@ from src.footer         import Footer
 from src.headline       import Headline
 from src.hourly         import Hourly
 from src.search_module  import SearchModule
+from src.theme          import Theme
 from src.weather        import Weather
 
 HEIGHT = 700
@@ -63,15 +64,24 @@ class Main(tk.Frame):
     def showStat(self, mode):
         self.hourly.showStat(mode)
 
+    def updateMode(self, darkTheme):
+        self.root['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
+        self.curtain.updateMode(darkTheme)
+
 class WeatherApp(tk.Frame):
     def __init__(self, root):
         tk.Frame.__init__(self, root)
-        
-        self.search_module = SearchModule(root, self)
-        self.main = Main(root)
-        self.footer = Footer(root)
 
-    def buttonPressed(self, city_name, state_code, country_code):
+        self.root = root
+
+        self.dark_mode = False
+        
+        self.search_module = SearchModule(self.root, self)
+        self.main = Main(self.root)
+        self.footer = Footer(self.root)
+        self.theme = Theme(self.root, self)
+
+    def buttonSearchPressed(self, city_name, state_code, country_code):
         city_name, state_code, country_code = (city_name.strip().title(),
                                             state_code.strip().upper(),
                                             country_code.strip().upper())
@@ -92,8 +102,17 @@ class WeatherApp(tk.Frame):
         self.main.formatOneCallResponse(res)
         print()
 
+    def buttonThemePressed(self):
+        self.dark_mode = not self.dark_mode
+
+        self.root.configure(bg=(COLOR_DARK_GRAY if self.dark_mode else COLOR_BLUE))
+        self.theme.updateMode(self.dark_mode)
+        self.search_module.updateMode(self.dark_mode)
+        self.main.updateMode(self.dark_mode)
+        self.footer.updateMode(self.dark_mode)
+
 def main(): 
-    root = tk.Tk(className='Weather App')
+    root = tk.Tk(className='weather app')
     root.geometry(f'{WIDTH}x{HEIGHT}')
     root.configure(bg=COLOR_BLUE)
     root.minsize(MIN_WIDTH, MIN_HEIGHT)

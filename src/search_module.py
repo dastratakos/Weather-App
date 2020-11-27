@@ -37,7 +37,7 @@ class SearchModule(tk.Frame):
 
         self.button_search = tk.Button(self.root, text='SEARCH', fg=COLOR_GREEN,
             font=(FONT, 20, 'bold'), 
-            command=lambda: controller.buttonPressed(self.entry_city.get(),
+            command=lambda: controller.buttonSearchPressed(self.entry_city.get(),
                 self.entry_state.get(), self.entry_country.get()))
         self.button_search.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)
     
@@ -61,3 +61,9 @@ class SearchModule(tk.Frame):
                 (result['country'] != results[0]['country']):
                     return None
         return results[0]
+
+    def updateMode(self, darkTheme):
+        self.root['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
+        self.label_city['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
+        self.label_state['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
+        self.label_country['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
