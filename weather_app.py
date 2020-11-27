@@ -30,6 +30,8 @@ from src.weather        import Weather
 
 HEIGHT = 700
 WIDTH = 800
+MIN_HEIGHT = 600
+MIN_WIDTH = 600
 
 APPID = 'eaee5bbe92bd1ce768a5927848974db2'
 ONE_CALL_URL = 'https://api.openweathermap.org/data/2.5/onecall'
@@ -91,14 +93,10 @@ class WeatherApp(tk.Frame):
         print()
 
 def main(): 
-    root = tk.Tk()
-
-    canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
-    canvas.pack()
-
-    background_image = tk.PhotoImage(file='./res/background.png')
-    background_label = tk.Label(root, image=background_image)
-    background_label.place(relwidth=1, relheight=1)
+    root = tk.Tk(className='Weather App')
+    root.geometry(f'{WIDTH}x{HEIGHT}')
+    root.configure(bg=COLOR_BLUE)
+    root.minsize(MIN_WIDTH, MIN_HEIGHT)
 
     WeatherApp(root)
 
