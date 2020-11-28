@@ -11,12 +11,10 @@ References:
 """
 ###### IMPORT BUILT-IN LIBRARIES
 from datetime import datetime, time
-# import pprint as pp
-# pprint = pp.PrettyPrinter(indent=4)
-
-###### IMPORT THIRD-PARTY LIBRARIES
 import json
 import requests
+
+###### IMPORT THIRD-PARTY LIBRARIES
 import tkinter as tk
 
 ###### IMPORT CUSTOM COMPONENTS
@@ -51,8 +49,8 @@ class Main(tk.Frame):
         self.hourly = Hourly(self.root, dark_mode)
         self.daily = Daily(self.root, dark_mode)
 
-        self.curtain = Curtain(self.root, dark_mode)
-        self.curtain_exists = True
+        # self.curtain = Curtain(self.root, dark_mode)
+        self.curtain_exists = False
 
         self.updateMode(dark_mode)
 
@@ -77,12 +75,12 @@ class Main(tk.Frame):
 
         if self.curtain_exists:
             self.curtain.updateMode(dark_mode)
-        else:
-            self.header.updateMode(dark_mode)
-            self.basic_weather.updateMode(dark_mode)
-            self.weather_details.updateMode(dark_mode)
-            self.hourly.updateMode(dark_mode)
-            self.daily.updateMode(dark_mode)
+        
+        self.header.updateMode(dark_mode)
+        self.basic_weather.updateMode(dark_mode)
+        self.weather_details.updateMode(dark_mode)
+        self.hourly.updateMode(dark_mode)
+        self.daily.updateMode(dark_mode)
 
 class WeatherApp(tk.Frame):
     def __init__(self, root):
@@ -92,7 +90,8 @@ class WeatherApp(tk.Frame):
         self.root.geometry(f'{WIDTH}x{HEIGHT}')
         self.root.minsize(MIN_WIDTH, MIN_HEIGHT)
 
-        self.dark_mode = (datetime.now().time() < time(7, 0, 0) or
+        # use Dark Mode if the app is started before 6AM or after 6PM
+        self.dark_mode = (datetime.now().time() < time(6, 0, 0) or
                           datetime.now().time() > time(18, 0, 0))
         self.root.configure(bg=(COLOR_DARK_BACKGROUND if self.dark_mode else COLOR_BACKGROUND))
         

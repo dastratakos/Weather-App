@@ -39,5 +39,5 @@ class Details(tk.Frame):
         self.l_weather_details['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
 
         for button in [self.b_temperature, self.b_humidity, self.b_wind]:
-            button['highlightbackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_BUTTON
-            button['activebackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_BUTTON
+            button['highlightbackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_DETAILS_BUTTON
+            button['activebackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_DETAILS_BUTTON
