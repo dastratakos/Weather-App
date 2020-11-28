@@ -49,8 +49,8 @@ class Main(tk.Frame):
         self.hourly = Hourly(self.root, dark_mode)
         self.daily = Daily(self.root, dark_mode)
 
-        # self.curtain = Curtain(self.root, dark_mode)
-        self.curtain_exists = False
+        self.curtain = Curtain(self.root, dark_mode)
+        self.curtain_exists = True
 
         self.updateMode(dark_mode)
 
@@ -100,7 +100,7 @@ class WeatherApp(tk.Frame):
         self.footer = Footer(self.root, self.dark_mode)
         self.theme = Theme(self.root, self, self.dark_mode)
 
-    def buttonSearchPressed(self, city_name, state_code, country_code, internet=False):
+    def buttonSearchPressed(self, city_name, state_code, country_code, internet=True):
         city_name, state_code, country_code = (city_name.strip().title(),
                                             state_code.strip().upper(),
                                             country_code.strip().upper())
