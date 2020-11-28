@@ -114,6 +114,8 @@ class WeatherApp(tk.Frame):
             lat, lon = city['coord']['lat'], city['coord']['lon']
             params = {'lat': lat, 'lon': lon, 'units': 'imperial', 'appid': APPID}
             res = requests.get(ONE_CALL_URL, params=params).json()
+            with open('./open-weather-app/one_call.json', 'w') as f:
+                json.dump(res, f, indent=4)
         else:
             with open('./open-weather-app/one_call.json') as f:
                 res = json.load(f)
