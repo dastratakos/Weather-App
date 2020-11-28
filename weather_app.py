@@ -10,6 +10,7 @@ References:
     https://github.com/KeithGalli/GUI
 """
 ###### IMPORT BUILT-IN LIBRARIES
+from datetime import datetime, time
 # import pprint as pp
 # pprint = pp.PrettyPrinter(indent=4)
 
@@ -41,7 +42,7 @@ class Main(tk.Frame):
     def __init__(self, parent, dark_mode):
         tk.Frame.__init__(self, parent)
 
-        self.root = tk.Frame(parent, bd=10, bg=COLOR_MAIN)
+        self.root = tk.Frame(parent, bd=10)
         self.root.place(relx=0.5, rely=0.95, relwidth=0.85, relheight=0.65, anchor='s')
 
         self.header = Headline(self.root, dark_mode)
@@ -52,6 +53,8 @@ class Main(tk.Frame):
 
         self.curtain = Curtain(self.root, dark_mode)
         self.curtain_exists = True
+
+        self.updateMode(dark_mode)
 
     def formatOneCallResponse(self, city, res):
         if self.curtain_exists:
@@ -70,7 +73,6 @@ class Main(tk.Frame):
         self.hourly.showStat(mode)
 
     def updateMode(self, dark_mode):
-        self.root['bd'] = 10
         self.root['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
 
         if self.curtain_exists:
@@ -87,8 +89,12 @@ class WeatherApp(tk.Frame):
         tk.Frame.__init__(self, root)
 
         self.root = root
+        self.root.geometry(f'{WIDTH}x{HEIGHT}')
+        self.root.minsize(MIN_WIDTH, MIN_HEIGHT)
 
-        self.dark_mode = False
+        self.dark_mode = (datetime.now().time() < time(7, 0, 0) or
+                          datetime.now().time() > time(18, 0, 0))
+        self.root.configure(bg=(COLOR_DARK_BACKGROUND if self.dark_mode else COLOR_BACKGROUND))
         
         self.search_module = SearchModule(self.root, self, self.dark_mode)
         self.main = Main(self.root, self.dark_mode)
@@ -118,7 +124,7 @@ class WeatherApp(tk.Frame):
 
     def buttonThemePressed(self):
         self.dark_mode = not self.dark_mode
-
+        
         self.root.configure(bg=(COLOR_DARK_BACKGROUND if self.dark_mode else COLOR_BACKGROUND))
         self.theme.updateMode(self.dark_mode)
         self.search_module.updateMode(self.dark_mode)
@@ -127,9 +133,6 @@ class WeatherApp(tk.Frame):
 
 def main():
     root = tk.Tk(className='weather app')
-    root.geometry(f'{WIDTH}x{HEIGHT}')
-    root.configure(bg=COLOR_BACKGROUND)
-    root.minsize(MIN_WIDTH, MIN_HEIGHT)
 
     WeatherApp(root)
 

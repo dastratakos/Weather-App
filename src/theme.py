@@ -17,6 +17,8 @@ class Theme(tk.Frame):
             command=lambda: controller.buttonThemePressed())
         self.b_theme.place(relx=0.99, rely=0.01, anchor='ne')
 
+        self.updateMode(dark_mode)
+
     def makeIcon(self, filename, background):
         raw_icon = (Image.open(filename).convert('RGBA').resize((SIZE, SIZE)))
         background = Image.new('RGB', raw_icon.size, background)
