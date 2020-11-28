@@ -5,41 +5,42 @@ import tkinter as tk
 from src.styles import *
 
 class SearchModule(tk.Frame):
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, dark_mode):
         tk.Frame.__init__(self, parent)
 
         with open('./open-weather-app/city.list.json') as f:
             self.city_list = json.load(f)
 
-        self.root = tk.Frame(parent, bg=COLOR_BLUE, bd=10)
+        self.root = tk.Frame(parent, bd=10)
         self.root.place(relx=0.5, rely=0.05, relwidth=0.85, relheight=0.2, anchor='n')
 
-        self.label_city = tk.Label(self.root, text='City:', font=(FONT, 20),
-            anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_city.place(rely=0, relx=0.1, relwidth=0.2, height=35, anchor='n')
-        self.entry_city = tk.Entry(self.root, text='Saratoga', font=(FONT, 20),
-            fg=COLOR_DARK_GRAY)
-        self.entry_city.place(rely=0, relx=0.5, relwidth=0.5, height=35, anchor='n')
+        self.l_city = tk.Label(self.root, text='City:', font=(FONT, 20),
+            anchor='e')
+        self.l_city.place(rely=0, relx=0.1, relwidth=0.2, height=35, anchor='n')
+        self.e_city = tk.Entry(self.root, text='Saratoga', font=(FONT, 20))
+        self.e_city.place(rely=0, relx=0.5, relwidth=0.5, height=35, anchor='n')
 
-        self.label_state = tk.Label(self.root, text='State:', font=(FONT, 20),
-            anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_state.place(rely=0.5, relwidth=0.2, height=35, anchor='w')
-        self.entry_state = tk.Entry(self.root, text='CA', font=(FONT, 20),
-            fg=COLOR_DARK_GRAY)
-        self.entry_state.place(rely=0.5, relx=0.25, relwidth=0.5, height=35, anchor='w')
+        self.l_state = tk.Label(self.root, text='State:', font=(FONT, 20),
+            anchor='e')
+        self.l_state.place(rely=0.5, relwidth=0.2, height=35, anchor='w')
+        self.e_state = tk.Entry(self.root, text='CA', font=(FONT, 20))
+        self.e_state.place(rely=0.5, relx=0.25, relwidth=0.5, height=35, anchor='w')
 
-        self.label_country = tk.Label(self.root, text='Country:', font=(FONT, 20),
-            anchor='e', bg=COLOR_BLUE, fg=COLOR_WHITE)
-        self.label_country.place(rely=1, relx=0.1, relwidth=0.2, height=35, anchor='s')
-        self.entry_country = tk.Entry(self.root, text='USA', font=(FONT, 20),
-            fg=COLOR_DARK_GRAY)
-        self.entry_country.place(rely=1, relx=0.5, relwidth=0.5, height=35, anchor='s')
+        self.l_country = tk.Label(self.root, text='Country:', font=(FONT, 20),
+            anchor='e')
+        self.l_country.place(rely=1, relx=0.1, relwidth=0.2, height=35, anchor='s')
+        self.e_country = tk.Entry(self.root, text='USA', font=(FONT, 20))
+        self.e_country.place(rely=1, relx=0.5, relwidth=0.5, height=35, anchor='s')
 
-        self.button_search = tk.Button(self.root, text='SEARCH', fg=COLOR_GREEN,
-            font=(FONT, 20, 'bold'), 
-            command=lambda: controller.buttonSearchPressed(self.entry_city.get(),
-                self.entry_state.get(), self.entry_country.get()))
-        self.button_search.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)
+        self.b_search = tk.Button(self.root, text='SEARCH', font=(FONT, 20, 'bold'),
+            highlightthickness=0,
+            command=lambda: controller.buttonSearchPressed(
+                self.e_city.get(),
+                self.e_state.get(),
+                self.e_country.get()))
+        self.b_search.place(relx=0.8, rely=0.3, relwidth=0.2, relheight=0.4)
+
+        self.updateMode(dark_mode)
     
     def getCity(self, city_name, state_code, country_code):
         results = [x for x in self.city_list
@@ -62,8 +63,22 @@ class SearchModule(tk.Frame):
                     return None
         return results[0]
 
-    def updateMode(self, darkTheme):
-        self.root['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
-        self.label_city['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
-        self.label_state['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
-        self.label_country['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
+    def updateMode(self, dark_mode):
+        self.root['bg'] = COLOR_DARK_BACKGROUND if dark_mode else COLOR_BACKGROUND
+
+        self.b_search['fg'] = COLOR_DARK_BACKGROUND if dark_mode else COLOR_BACKGROUND
+        self.b_search['highlightbackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_BUTTON
+        self.b_search['activebackground'] = COLOR_DARK_BUTTON if dark_mode else COLOR_BUTTON
+
+        labels = [self.l_city, self.l_state, self.l_country]
+        entries = [self.e_city, self.e_state, self.e_country]
+
+        for label, entry in zip(labels, entries):
+            label['fg'] = COLOR_DARK_TEXT_TERTIARY  if dark_mode else COLOR_TEXT_TERTIARY
+            label['bg'] = COLOR_DARK_BACKGROUND     if dark_mode else COLOR_BACKGROUND
+            entry['fg'] = COLOR_DARK_TEXT_SECONDARY if dark_mode else COLOR_TEXT_SECONDARY
+            entry['bg'] = COLOR_DARK_MAIN           if dark_mode else COLOR_MAIN
+            entry['insertbackground'] = COLOR_DARK_TEXT_SECONDARY if dark_mode else COLOR_TEXT_SECONDARY
+            entry.config(
+                highlightbackground = COLOR_DARK_TEXT_SECONDARY if dark_mode else COLOR_MAIN,
+                highlightcolor      = COLOR_DARK_TEXT_SECONDARY if dark_mode else COLOR_MAIN)

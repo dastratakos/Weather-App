@@ -5,8 +5,10 @@ import tkinter as tk
 from src.styles import *
 
 class Hour(tk.Frame):
-    def __init__(self, parent, index):
+    def __init__(self, parent, index, dark_mode):
         tk.Frame.__init__(self, parent)
+
+        self.dark_mode = dark_mode
 
         self.hour = ''
         self.stats = {
@@ -18,13 +20,13 @@ class Hour(tk.Frame):
         self.root = tk.Frame(parent)
         self.root.place(relx=(0.125 * index), y=0, relwidth=0.125, relheight=1)
 
-        self.label_time = tk.Label(self.root,
-            fg=COLOR_LIGHT_GRAY, font=(FONT, 15), anchor='n')
-        self.label_time.place(relx=0, rely=0, relwidth=1, height=20)
+        self.l_stat = tk.Label(self.root, font=(FONT, 30))
+        self.l_stat.place(relx=0, rely=0.5, relwidth=1, height=80, anchor='w')
 
-        self.label_stat = tk.Label(self.root,
-            font=(FONT, 30))
-        self.label_stat.place(relx=0, rely=0.5, relwidth=1, height=80, anchor='w')
+        self.l_time = tk.Label(self.root, font=(FONT, 15), anchor='n')
+        self.l_time.place(relx=0, rely=0, relwidth=1, height=20)
+
+        self.updateMode(dark_mode)
 
     def format(self, res):
         """
@@ -40,6 +42,18 @@ class Hour(tk.Frame):
         self.stats['wind']['text'] = f"{res['wind_speed']}\nmph"
 
     def showStat(self, stat):
-        self.label_time['text'] = self.hour
-        self.label_stat['text'] = self.stats[stat]['text']
-        self.label_stat['font'] = (FONT, self.stats[stat]['size'])
+        self.l_time['text'] = self.hour
+        self.l_stat['text'] = self.stats[stat]['text']
+        self.l_stat['font'] = (FONT, self.stats[stat]['size'])
+
+    def updateMode(self, dark_mode):
+        self.dark_mode = dark_mode
+
+        self.root['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
+
+        self.l_time['fg'] = COLOR_DARK_TEXT_QUATERNARY if dark_mode else COLOR_TEXT_QUATERNARY
+        self.l_time['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
+
+        self.l_stat['fg'] = COLOR_DARK_TEXT_PRIMARY if dark_mode else COLOR_TEXT_PRIMARY
+        self.l_stat['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
+        

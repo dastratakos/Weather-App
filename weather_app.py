@@ -14,6 +14,7 @@ References:
 # pprint = pp.PrettyPrinter(indent=4)
 
 ###### IMPORT THIRD-PARTY LIBRARIES
+import json
 import requests
 import tkinter as tk
 
@@ -31,29 +32,33 @@ from src.weather        import Weather
 
 HEIGHT = 700
 WIDTH = 800
-MIN_HEIGHT = 600
-MIN_WIDTH = 600
+MIN_HEIGHT = 650
+MIN_WIDTH = 650
 
 APPID = 'eaee5bbe92bd1ce768a5927848974db2'
 ONE_CALL_URL = 'https://api.openweathermap.org/data/2.5/onecall'
 class Main(tk.Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, dark_mode):
         tk.Frame.__init__(self, parent)
 
-        self.root = tk.Frame(parent, bd=10)
+        self.root = tk.Frame(parent, bd=10, bg=COLOR_MAIN)
         self.root.place(relx=0.5, rely=0.95, relwidth=0.85, relheight=0.65, anchor='s')
 
-        self.header = Headline(self.root)
-        self.basic_weather = Weather(self.root)
-        self.weather_details = Details(self.root, self)
-        self.hourly = Hourly(self.root)
-        self.daily = Daily(self.root)
-        self.curtain = Curtain(self.root)
+        self.header = Headline(self.root, dark_mode)
+        self.basic_weather = Weather(self.root, dark_mode)
+        self.weather_details = Details(self.root, self, dark_mode)
+        self.hourly = Hourly(self.root, dark_mode)
+        self.daily = Daily(self.root, dark_mode)
 
-    def formatOneCallResponse(self, res):
-        self.curtain.root.destroy()
+        self.curtain = Curtain(self.root, dark_mode)
+        self.curtain_exists = True
 
-        self.header.format(res['current'])
+    def formatOneCallResponse(self, city, res):
+        if self.curtain_exists:
+            self.curtain.l_home.destroy()
+            self.curtain_exists = False
+
+        self.header.format(city, res['current'])
         self.basic_weather.format(res['current'])
         self.weather_details.format(res['current'])
 
@@ -64,9 +69,18 @@ class Main(tk.Frame):
     def showStat(self, mode):
         self.hourly.showStat(mode)
 
-    def updateMode(self, darkTheme):
-        self.root['bg'] = COLOR_DARK_GRAY if darkTheme else COLOR_BLUE
-        self.curtain.updateMode(darkTheme)
+    def updateMode(self, dark_mode):
+        self.root['bd'] = 10
+        self.root['bg'] = COLOR_DARK_MAIN if dark_mode else COLOR_MAIN
+
+        if self.curtain_exists:
+            self.curtain.updateMode(dark_mode)
+        else:
+            self.header.updateMode(dark_mode)
+            self.basic_weather.updateMode(dark_mode)
+            self.weather_details.updateMode(dark_mode)
+            self.hourly.updateMode(dark_mode)
+            self.daily.updateMode(dark_mode)
 
 class WeatherApp(tk.Frame):
     def __init__(self, root):
@@ -76,12 +90,12 @@ class WeatherApp(tk.Frame):
 
         self.dark_mode = False
         
-        self.search_module = SearchModule(self.root, self)
-        self.main = Main(self.root)
-        self.footer = Footer(self.root)
-        self.theme = Theme(self.root, self)
+        self.search_module = SearchModule(self.root, self, self.dark_mode)
+        self.main = Main(self.root, self.dark_mode)
+        self.footer = Footer(self.root, self.dark_mode)
+        self.theme = Theme(self.root, self, self.dark_mode)
 
-    def buttonSearchPressed(self, city_name, state_code, country_code):
+    def buttonSearchPressed(self, city_name, state_code, country_code, internet=False):
         city_name, state_code, country_code = (city_name.strip().title(),
                                             state_code.strip().upper(),
                                             country_code.strip().upper())
@@ -91,30 +105,30 @@ class WeatherApp(tk.Frame):
         city = self.search_module.getCity(city_name, state_code, country_code)
         if not city: print('No unique city'); return
         print(f"Output: {city['name']}, {city['state']}, {city['country']}")
-        lat, lon = city['coord']['lat'], city['coord']['lon']
-        params = {'lat': lat, 'lon': lon, 'units': 'imperial', 'appid': APPID}
-        res = requests.get(ONE_CALL_URL, params=params).json()
+        if internet:
+            lat, lon = city['coord']['lat'], city['coord']['lon']
+            params = {'lat': lat, 'lon': lon, 'units': 'imperial', 'appid': APPID}
+            res = requests.get(ONE_CALL_URL, params=params).json()
+        else:
+            with open('./open-weather-app/one_call.json') as f:
+                res = json.load(f)
 
-        self.main.header.label_location['text'] = city['name'] + \
-            (f", {city['state']}" if city['state'] else '') + \
-            (f", {city['country']}" if city['country'] else '')
-
-        self.main.formatOneCallResponse(res)
+        self.main.formatOneCallResponse(city, res)
         print()
 
     def buttonThemePressed(self):
         self.dark_mode = not self.dark_mode
 
-        self.root.configure(bg=(COLOR_DARK_GRAY if self.dark_mode else COLOR_BLUE))
+        self.root.configure(bg=(COLOR_DARK_BACKGROUND if self.dark_mode else COLOR_BACKGROUND))
         self.theme.updateMode(self.dark_mode)
         self.search_module.updateMode(self.dark_mode)
         self.main.updateMode(self.dark_mode)
         self.footer.updateMode(self.dark_mode)
 
-def main(): 
+def main():
     root = tk.Tk(className='weather app')
     root.geometry(f'{WIDTH}x{HEIGHT}')
-    root.configure(bg=COLOR_BLUE)
+    root.configure(bg=COLOR_BACKGROUND)
     root.minsize(MIN_WIDTH, MIN_HEIGHT)
 
     WeatherApp(root)
