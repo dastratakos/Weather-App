@@ -25,9 +25,10 @@ resized.
 user can toggle between modes at any time.
 ## Screenshots
 
-<img src="samples/Saratoga.png" title="Saratoga" alt="Saratoga" width="400" />
-
-<img src="samples/Atlanta_dark.png" title="Atlanta Dark Mode" alt="Atlanta Dark Mode" width="400" />
+<div style="float: left;">
+    <img src="samples/Saratoga.png" title="Saratoga" alt="Saratoga" width="400" />
+    <img src="samples/Atlanta_dark.png" title="Atlanta Dark Mode" alt="Atlanta Dark Mode" width="400" />
+</div>
 
 ## Notes
 
