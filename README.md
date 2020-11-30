@@ -30,6 +30,15 @@ user can toggle between modes at any time.
     <img src="samples/Atlanta_dark.png" title="Atlanta Dark Mode" alt="Atlanta Dark Mode" width="400" />
 </div>
 
+
+## Usage
+
+Install necessary packages using `pip`, and make sure you are using Python 3.
+
+```sh
+python weather_app.py
+```
+
 ## Notes
 
 I used this command to create an executable:
