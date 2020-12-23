@@ -33,7 +33,9 @@ user can toggle between modes at any time.
 
 ## Usage
 
-Install necessary packages using `pip`, and make sure you are using Python 3.
+Install the necessary packages in a virtual environment using `pip`, and make sure you are using Python 3.
+
+Then, run this command:
 
 ```sh
 python weather_app.py
